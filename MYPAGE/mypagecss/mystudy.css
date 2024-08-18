@@ -1,0 +1,22 @@
+/* mypage.css */
+
+.profile-info {
+    margin: 20px 0;
+}
+
+.recent-sentence, .review-sentences, .learning-progress, .daily-goal {
+    margin: 20px 0;
+}
+
+.review-sentences ul {
+    list-style: none;
+    padding: 0;
+}
+
+.review-sentences ul li {
+    margin: 5px 0;
+}
+
+.daily-goal button {
+    margin: 0 5px;
+}
