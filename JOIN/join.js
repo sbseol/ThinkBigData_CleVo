@@ -1,16 +1,20 @@
 // 에러 메세지 객체
 const errMsg = {
   id: { 
-    invalid: "6~20자의 영문 소문자와 숫자만 사용 가능합니다",
+    invalid: "10자 이내로 입력해주세요",
     success: "사용 가능한 아이디입니다",
-    fail: "사용할 수 없는 아이디입니다"
+    fail: "사용할 수 없는 아이디입니다",
+    check: "아이디 중복 확인을 해주세요"  // 추가된 메시지
   },
   pw: "8~20자의 영문, 숫자, 특수문자를 모두 포함한 비밀번호를 입력해주세요",
   pwRe: {
     success: "비밀번호가 일치합니다",
     fail: "비밀번호가 일치하지 않습니다"
   },
-  birth: "생년월일을 다시 확인해주세요" 
+  birth: "생년월일을 다시 확인해주세요",
+  email: "이메일을 입력해주세요",
+  name: "이름을 입력해주세요",
+  gender: "성별을 선택해주세요"
 }
 
 // 계정 정보 객체
@@ -18,7 +22,10 @@ const account = {
   id: null,
   pw: null,
   email: null,
-  birth: null
+  birth: null,
+  name: null,
+  gender: null,
+  isIdChecked: false  // 아이디 중복 확인 여부
 }
 
 /*** SECTION - ID ***/
@@ -26,10 +33,11 @@ const idInputEl = document.querySelector('#info__id input')
 const idErrorMsgEl = document.querySelector('#info__id .error-msg')
 const idCheckBtn = document.querySelector('#id-check')
 idInputEl.addEventListener('change', () => {
-  const idRegExp = /^[a-zA-Z0-9]{1,10}$/
+  const idRegExp = /^.{1,10}$/ // 한글, 영어, 숫자 상관 없이 10자 이내
   if(idRegExp.test(idInputEl.value)) { // 정규식 조건 만족 O
     idErrorMsgEl.textContent = ""
     account.id = idInputEl.value
+    account.isIdChecked = false  // 아이디가 변경되면 중복 확인 다시 해야 함
   } else { // 정규식 조건 만족 X
     idErrorMsgEl.style.color = "red"
     idErrorMsgEl.textContent = errMsg.id.invalid
@@ -44,10 +52,12 @@ idCheckBtn.addEventListener('click', () => {
     if(randVal < 7) {
       idErrorMsgEl.style.color = "green"
       idErrorMsgEl.textContent = errMsg.id.success
+      account.isIdChecked = true  // 중복 확인 성공
     }
     else {
       idErrorMsgEl.style.color = "red"
       idErrorMsgEl.textContent = errMsg.id.fail
+      account.isIdChecked = false  // 중복 확인 실패
     }
   }
 })
@@ -100,15 +110,13 @@ pwReInputEl.addEventListener('change', () => {
 });
 
 /*** SECTION - EMAIL ***/
-
-/*** SECTION - EMAIL ***/
 emailList = ["", ""]
 function checkEmailValid() {
   if(emailList[0] !== "" && emailList[1] !== "") {
     account.email = emailList.join('@')
+  } else {
+    account.email = null
   }
-  else
-  account.email = null
 }
 
 const emailInputEl = document.querySelector('#email-txt')
@@ -173,9 +181,9 @@ function checkBirthValid(birthArr) {
 
     if(isBirthValid) { // 유효한 날짜
       birthErrorMsgEl.textContent = ""
-      account.birth = birthArr.join('')
+      account.birth = birthArr.join('-')  // 변경된 포맷
     } else { // 유효하지 않은 날짜
-      birthErrorMsgEl.textContent = "생년월일을 다시 확인해주세요"
+      birthErrorMsgEl.textContent = errMsg.birth
       account.birth = null
     }
   }
@@ -259,31 +267,74 @@ birthDayEl.addEventListener('change', () => {
 });
 
 /*** GENDER ***/
+const genderInputs = document.querySelectorAll('input[name="gender"]');
+genderInputs.forEach(input => {
+  input.addEventListener('change', () => {
+    if (input.checked) {
+      account.gender = input.id;
+      console.log(account);
+    }
+  });
+});
 
+/*** NAME ***/
+const nameInputEl = document.querySelector('#info__name input');
+nameInputEl.addEventListener('change', () => {
+  account.name = nameInputEl.value.trim() !== "" ? nameInputEl.value : null;
+  console.log(account);
+});
 
 /*** SUBMIT ***/
 const submitBtn = document.querySelector('#submit')
 const resultFailEl = document.querySelector('#result-fail')
-submitBtn.addEventListener('click', function() {
+submitBtn.addEventListener('click', async function() {
   let isAllFilled = true
   const word = {  
     pw: "비밀번호를",
     email: "이메일을",
     id: "아이디를",
     birth: "생년월일을",
+    name: "이름을",
+    gender: "성별을"  // 추가된 필드
   }
+
+  // 아이디 중복 확인 여부 체크
+  if (!account.isIdChecked) {
+    alert(errMsg.id.check);
+    return;
+  }
+
   for(element in account) {
     if(account[element] === null) {
-      resultFailEl.textContent = word[element] + " 다시 한번 확인해주세요"
-      isAllFilled = false
-      break
+      resultFailEl.textContent = word[element] + " 다시 한번 확인해주세요";
+      isAllFilled = false;
+      break;
     }
   }
-  if (isAllFilled === true) {
+
+  if (isAllFilled) {
     resultFailEl.textContent = ""
-    setTimeout(function() {
-      alert("회원가입 성공!");
-      location.href = "signin.html"
-    }, 300)
+
+    // 서버로 데이터 전송
+    try {
+      const response = await fetch('http://localhost:8080/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(account)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('회원가입이 완료되었습니다.');
+        location.href = 'signin.html';
+      } else {
+        resultFailEl.textContent = data.error;
+      }
+    } catch (error) {
+      resultFailEl.textContent = '회원가입에 실패했습니다.';
+    }
   }
 })

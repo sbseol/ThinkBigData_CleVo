@@ -1,15 +1,15 @@
 const account = {
-  id: null,
+  email: null,
   pw: null
 }
 
 /*** SECTION - ID ***/
-const idInputEl = document.querySelector('.box#signin-id')
+const idInputEl = document.querySelector('.box#signin-email')
 const pwInputEl = document.querySelector('.box#signin-pw')
 const signInBtn = document.querySelector('#signin')
 
 idInputEl.addEventListener('change', () => {
-  account.id = idInputEl.value
+  account.email = idInputEl.value
   console.log(Object.values(account))
 });
 
@@ -18,24 +18,31 @@ pwInputEl.addEventListener('change', () => {
   console.log(Object.values(account))
 });
 
-signInBtn.addEventListener('click', () => {
-  const randNum = Math.floor(Math.random() * 10)
-  console.log(randNum)
-  if(account.id === "" || account.id === null) {
-    alert("아이디를 입력해주세요")
-  }
-  else if (account.pw === "" || account.pw === null) {
+signInBtn.addEventListener('click', async () => {
+  if(account.email === "" || account.email === null) {
+    alert("이메일을 입력해주세요")
+  } else if (account.pw === "" || account.pw === null) {
     alert("비밀번호를 입력해주세요")
-  }
-  else {
-    if(randNum < 4) {
-      alert("존재하지 않는 아이디입니다.")
-    }
-    else if (randNum < 7) {
-      alert("비밀번호를 확인해주세요.")
-    }
-    else {
-      location.href = "/result/index.html"
+  } else {
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: account.email, password: account.pw }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        location.href = "/dashboard";
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('이메일 또는 비밀번호가 잘못 되었습니다.');
     }
   }
 });
