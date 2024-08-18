@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="main.css">
     <script src="https://kit.fontawesome.com/6b435800dd.js" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
 </head>
 
 <body>
@@ -21,20 +22,17 @@
             </div>
             <nav class="header__menu">
                 <ul>
-                  <li><a href="javascript:alert('로그인을 먼저 해주세요.');">학습하기</a></li>
-                  <li><a href="javascript:alert('로그인을 먼저 해주세요.');">게시판</a></li>
-                  <li><a href="javascript:alert('로그인을 먼저 해주세요.');">마이페이지</a></li>
+                  <li><a id="studyLink" href="javascript:alert('로그인을 먼저 해주세요.');">학습하기</a></li>
+                  <li><a id="boardLink" href="javascript:alert('로그인을 먼저 해주세요.');">게시판</a></li>
+                  <li><a id="mypageLink" href="javascript:alert('로그인을 먼저 해주세요.');">마이페이지</a></li>
                 </ul>
-              </nav>
+            </nav>
             <form class="header__search" action="" method="get">
                 <input class="search_txt" type="text" placeholder="검색어를 입력하세요.">
                 <button class="search_btn" type="submit" href="#">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-            <div class="header__member">
-                <a href="../JOIN/signin.html">로그인/회원가입</a>
-            </div>
         </div>
     </header>
   
@@ -49,9 +47,10 @@
                         Speaking 자신감을 가질 수 있어요!
                     </p>
                     <div class="btn">
-                        <a href="../JOIN/signin.html">로그인</a>
-                        <a href="../JOIN/join.html" class="black">회원가입</a>
+                        <a href="../JOIN/signin.html" id="loginButton">로그인</a>
+                        <a href="../JOIN/join.html" id="signupButton" class="black">회원가입</a>
                     </div>
+                </div>
             </div>
             <div class="slider__arrow"></div>
             <div class="slider__dot"></div>
@@ -69,63 +68,38 @@
                 <h3>Q: 학습에 얼마나 시간이 걸릴까요?</h3>
                 <p>A: 개인의 능력과 투자한 시간에 따라 다르지만, 기초를 다지려면 보통 몇 달에서 몇 년이 걸릴 수 있습니다.</p>
             </div>
-            <div class="faq-item">
-                <h3>Q: 어떻게 효율적으로 학습할 수 있을까요?</h3>
-                <p>A: 매일 조금씩 학습하고, 다양한 학습 도구와 방법을 활용하세요. 집중력을 유지하기 위해 정기적인 복습을 할 수도 있습니다.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q: 어떠한 언어를 학습할 수 있나요?</h3>
-                <p>A: 일단은 영어만 학습 가능합니다 ㅇㅇㅇㅇ</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q: 어떻게 효율적으로 학습할 수 있을까요?</h3>
-                <p>A: 매일 조금씩 학습하고, 다양한 학습 도구와 방법을 활용하세요. 집중력을 유지하기 위해 정기적인 복습을 할 수도 있습니다.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q: 어떻게 효율적으로 학습할 수 있을까요?</h3>
-                <p>A: 매일 조금씩 학습하고, 다양한 학습 도구와 방법을 활용하세요. 집중력을 유지하기 위해 정기적인 복습을 할 수도 있습니다.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Q: 어떻게 효율적으로 학습할 수 있을까요?</h3>
-                <p>A: 매일 조금씩 학습하고, 다양한 학습 도구와 방법을 활용하세요. 집중력을 유지하기 위해 정기적인 복습을 할 수도 있습니다.</p>
-            </div>
         </div>
     </section>
 
-
-
-
-
-<!-- 페이지 하단 -->
-<footer class="footer">
-    <div class="social-icons">
-        <a href="https://www.facebook.com/?locale=ko_KR" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://x.com/?lang=ko" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-        <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-    </div>
-    <div class="footer-container">
-        <div class="footer-section about">
-            <h2>CleVo</h2>
-            <p>CleVo는 언어 학습을 위한 최고의 플랫폼을 제공합니다.<br>
-                다양한 도구와 자료로 학습을 지원합니다.</p>
+    <footer class="footer">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/?locale=ko_KR" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://x.com/?lang=ko" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
         </div>
-        <div class="footer-section links">
-            <h2>메뉴</h2>
-            <ul>
-                <li><a href="javascript:alert('로그인을 먼저 해주세요.');">학습하기</a></li>
-                <li><a href="javascript:alert('로그인을 먼저 해주세요.');">게시판</a></li>
-                <li><a href="javascript:alert('로그인을 먼저 해주세요.');">마이페이지</a></li>
-            </ul>
+        <div class="footer-container">
+            <div class="footer-section about">
+                <h2>CleVo</h2>
+                <p>CleVo는 언어 학습을 위한 최고의 플랫폼을 제공합니다.<br>
+                    다양한 도구와 자료로 학습을 지원합니다.</p>
+            </div>
+            <div class="footer-section links">
+                <h2>메뉴</h2>
+                <ul>
+                    <li><a id="footerStudyLink" href="javascript:alert('로그인을 먼저 해주세요.');">학습하기</a></li>
+                    <li><a id="footerBoardLink" href="javascript:alert('로그인을 먼저 해주세요.');">게시판</a></li>
+                    <li><a id="footerMypageLink" href="javascript:alert('로그인을 먼저 해주세요.');">마이페이지</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h2>연락처</h2>
+                <p>이메일: info@clevo.com<br>
+                    전화: 010-1234-5678</p>
+            </div>
         </div>
-        <div class="footer-section contact">
-            <h2>연락처</h2>
-            <p>이메일: info@clevo.com<br>
-                전화: 010-1234-5678</p>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CleVo. All rights reserved.</p>
         </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; 2024 CleVo. All rights reserved.</p>
-    </div>
-</footer>
+    </footer>
 </body>
 </html>

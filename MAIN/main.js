@@ -21,7 +21,7 @@ async function logout() {
 }
 
 async function checkLoginStatus() {
-    const response = await fetch('/status(로그인 상태 확인)');
+    const response = await fetch('/status(로그인 상태확인)');
     const result = await response.json();
     return result.isLoggedIn;
 }

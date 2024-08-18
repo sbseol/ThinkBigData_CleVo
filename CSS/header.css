@@ -56,6 +56,7 @@ em {
     border: 1px solid #828282;
     display: flex;
     align-items: center;
+    margin-right: 100px;
 }
 .search_txt {
     flex: 1;
@@ -75,10 +76,7 @@ em {
     font-size: var(--font-size);
     cursor: pointer;
 }
-.header__member {
-    font-size: 12px;
-    padding: 10px 50px;
-}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
