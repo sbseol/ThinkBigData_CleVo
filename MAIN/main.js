@@ -21,7 +21,7 @@ async function logout() {
 }
 
 async function checkLoginStatus() {
-    const response = await fetch('/status(로그인 상태확인)');
+    const response = await fetch('/status');  // 잘못된 부분 수정: 실제 서버 엔드포인트에 맞게 '/status'로 변경
     const result = await response.json();
     return result.isLoggedIn;
 }
@@ -79,7 +79,7 @@ async function handleAuth() {
     }
 }
 
-window.onload = async function() {
+window.onpageshow = async function() {
     const loginButton = document.getElementById('loginButton');
     const signupButton = document.getElementById('signupButton');
 
