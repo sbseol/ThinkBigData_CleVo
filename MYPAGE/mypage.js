@@ -1,26 +1,36 @@
-function setNew(menu) {
-  var pages = document.querySelectorAll('.container > div');
-  var sideBarItems = document.querySelectorAll('.side_bar > ul > li');
+// 현재 표시된 페이지 ID를 저장하는 변수
+let currentPage = 'mystudy';
 
-  pages.forEach(function(page) {
-      page.style.display = 'none';
-  });
+// 페이지를 전환하는 함수
+function setNew(pageId) {
+    // 모든 페이지 콘텐츠를 숨기기
+    document.querySelectorAll('.container > div').forEach(div => {
+        div.style.display = 'none';
+    });
 
-  sideBarItems.forEach(function(item) {
-      item.classList.remove('on');
-  });
+    // 선택한 페이지 콘텐츠만 보이기
+    document.getElementById(pageId).style.display = 'block';
 
-  document.getElementById(menu).style.display = 'block';
-  document.querySelector('.side_bar > ul > li.' + menu).classList.add('on');
+    // 사이드바 메뉴의 활성화 상태를 업데이트
+    document.querySelectorAll('.side_bar ul li').forEach(li => {
+        li.classList.remove('on');
+    });
+    document.querySelector(`.side_bar ul li.${pageId}`).classList.add('on');
 
-  // Store the active menu in localStorage
-  localStorage.setItem('activeMenu', menu);
+    // 현재 페이지 상태 업데이트
+    currentPage = pageId;
 }
 
+// 페이지 로드 시 초기 설정
 document.addEventListener("DOMContentLoaded", function() {
-    // Get the active menu from localStorage
-    var activeMenu = localStorage.getItem('activeMenu');
-    
-    // Set the active menu if it exists in localStorage, otherwise default to 'mystudy'
-    setNew(activeMenu ? activeMenu : 'mystudy');
+    // 초기 페이지 설정
+    setNew(currentPage);
+
+    // 사이드바 메뉴 클릭 이벤트 설정
+    document.querySelectorAll('.side_bar ul li').forEach(li => {
+        li.addEventListener('click', function() {
+            const pageId = this.classList[0];
+            setNew(pageId);
+        });
+    });
 });

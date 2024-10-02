@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Study Page</title>
+    <title>MyPage</title>
     <link rel="stylesheet" href="../CSS/header.css">
     <link rel="stylesheet" href="../CSS/mypage.css">
     <link rel="stylesheet" href="mypagecss/mystudy.css">
     <script src="https://kit.fontawesome.com/6b435800dd.js" crossorigin="anonymous"></script>
     <script src="mypage.js" defer></script>
     <script src="mypagejs/mystudy.js" defer></script>
+    <script src="mypagejs/memo.js" defer></script>
+    <script src="mypagejs/comment.js" defer></script>
+    <script src="mypagejs/post.js" defer></script>
+    <script src="mypagejs/setting.js" defer></script>
 </head>
 <body>
     <header id="headerType" class="header__wrap nexon">
@@ -32,9 +36,6 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-            <div class="header__member">
-                <a href="../MAIN/main.html">로그아웃</a>
-            </div>
         </div>
     </header>
     <main class="mystudy">
@@ -51,9 +52,7 @@
         </aside>
         <div class="container">
             <div id="mystudy" class="page_mystudy"></div>
-            <div id="memo" class="page_memo">
-                <h3>...</h3>
-            </div>
+            <div id="memo" class="page_memo"></div>
             <div id="comment" class="page_comment"></div>
             <div id="post" class="page_post"></div>
             <div id="setting" class="page_setting"></div>
