@@ -1,0 +1,41 @@
+/* 메모 입력 스타일 */
+#newMemo {
+    padding: 8px;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+button {
+    background-color: #6B8E23;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #558017;
+}
+
+/* 삭제 버튼 스타일 */
+.delete-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
