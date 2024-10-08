@@ -77,6 +77,10 @@ em {
     font-size: var(--font-size);
     cursor: pointer;
 }
+.header__search .fa-magnifying-glass {
+    color: #828282; 
+}
+
 
 
 /* Responsive Design */

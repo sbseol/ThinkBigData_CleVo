@@ -1,5 +1,5 @@
-// 메모 데이터를 저장하는 배열
-let memoList = [
+// 메모 데이터를 저장하는 배열 (localStorage에서 로드)
+let memoList = JSON.parse(localStorage.getItem('memos')) || [
     { text: "메모 1: 중요한 일정을 기록하세요." },
     { text: "메모 2: 해야 할 일 목록을 작성하세요." },
     { text: "메모 3: 학습 목표를 정리하세요." }
@@ -10,9 +10,9 @@ function loadMemoContent() {
     const memoContainer = document.getElementById('memo');
     memoContainer.innerHTML = `
         <h2>메모장</h2>
-        <div>
-            <input type="text" id="newMemo" placeholder="새 메모 입력" />
-            <button onclick="addMemo()">추가</button>
+        <div id="memoInputContainer">
+            <textarea id="newMemo" placeholder="새 메모 입력"></textarea>
+            <button id="addMemoBtn" onclick="addMemo()">+</button>
         </div>
         <ul id="memoList">
             ${memoList.map((memo, index) => `
@@ -23,6 +23,14 @@ function loadMemoContent() {
             `).join('')}
         </ul>
     `;
+    document.getElementById('newMemo').addEventListener('input', autoResizeTextarea); // 입력 시 높이 자동 조절
+}
+
+// textarea의 높이를 입력 내용에 따라 자동으로 조절하는 함수
+function autoResizeTextarea() {
+    const textarea = document.getElementById("newMemo");
+    textarea.style.height = "auto";  // 높이를 먼저 초기화한 후
+    textarea.style.height = (textarea.scrollHeight) + "px";  // 입력 내용에 맞춰 높이를 다시 설정
 }
 
 // 메모 추가 함수
@@ -35,6 +43,9 @@ function addMemo() {
         memoList.push({ text: newMemoText });
         // 입력 필드 초기화
         newMemoInput.value = "";
+        newMemoInput.style.height = "auto"; // 입력 필드 높이 초기화
+        // LocalStorage에 저장
+        localStorage.setItem('memos', JSON.stringify(memoList));
         // 화면 업데이트
         loadMemoContent();
     } else {
@@ -46,6 +57,8 @@ function addMemo() {
 function deleteMemo(index) {
     // 선택된 메모를 배열에서 삭제
     memoList.splice(index, 1);
+    // LocalStorage에 저장
+    localStorage.setItem('memos', JSON.stringify(memoList));
     // 화면 업데이트
     loadMemoContent();
 }
